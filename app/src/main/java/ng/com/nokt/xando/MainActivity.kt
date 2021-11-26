@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -112,13 +113,25 @@ class MainActivity : AppCompatActivity() {
         if(winner != 0){
             if(winner == 1){
                 Toast.makeText(this, "Player One Won!!", Toast.LENGTH_LONG).show();
-                finish()
-                startActivity(intent)
+                winDialog("Player One")
             }else if(winner ==2 ){
                 Toast.makeText(this, "Player Two Won!!", Toast.LENGTH_LONG).show();
-                finish()
-                startActivity(intent)
+                winDialog("Player Two")
             }
         }
+    }
+
+    fun winDialog(winner:String){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("DSC X and O")
+        builder.setMessage("${winner} Wins!!")
+        builder.setNegativeButton("Done"){dialogInterface,which->
+            finish()
+            startActivity(intent)
+        }
+
+        val alertDialog:AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
     }
 }
